@@ -1,5 +1,6 @@
 package io.github.keymaster65.timecharts.control;
 
+import io.github.keymaster65.timecharts.api.Config;
 import io.github.keymaster65.timecharts.application.JavaFxMonitor;
 import io.github.keymaster65.timecharts.model.Event;
 import net.jqwik.api.Example;
@@ -13,30 +14,31 @@ class EventCollectorTest {
 
     @Example
     void createEventCollector() {
-        final Duration bucketDuration = Duration.ofSeconds(1);
+        final Config config = new Config(Duration.ofSeconds(1));
         final JavaFxMonitor monitor = Mockito.mock(JavaFxMonitor.class);
 
 
         final EventCollector eventCollector = new EventCollector(
                 LocalDateTime.now(),
-                bucketDuration,
+                config,
                 monitor
 
         );
 
 
-        Assertions.assertThat(eventCollector.bucketDuration).isEqualTo(bucketDuration);
+        Assertions.assertThat(eventCollector.config).isEqualTo(config);
         Mockito.verifyNoInteractions(monitor);
     }
 
     @Example
     void addInitialEvent() {
-        final Duration bucketDuration = Duration.ofSeconds(1);
+        final Config config = new Config(Duration.ofSeconds(1));
+
         final JavaFxMonitor monitor = Mockito.mock(JavaFxMonitor.class);
         final LocalDateTime now = LocalDateTime.now();
         final EventCollector eventCollector = new EventCollector(
                 now,
-                bucketDuration,
+                config,
                 monitor
         );
 
@@ -58,12 +60,12 @@ class EventCollectorTest {
 
     @Example
     void addEventsSameBucket() {
-        final Duration bucketDuration = Duration.ofSeconds(1);
+        final Config config = new Config(Duration.ofSeconds(1));
         final JavaFxMonitor monitor = Mockito.mock(JavaFxMonitor.class);
         final LocalDateTime now = LocalDateTime.now();
         final EventCollector eventCollector = new EventCollector(
                 now,
-                bucketDuration,
+                config,
                 monitor
 
         );
@@ -90,12 +92,12 @@ class EventCollectorTest {
 
     @Example
     void addEventsNextBucket() {
-        final Duration bucketDuration = Duration.ofSeconds(1);
+        final Config config = new Config(Duration.ofSeconds(1));
         final JavaFxMonitor monitor = Mockito.mock(JavaFxMonitor.class);
         final LocalDateTime now = LocalDateTime.now();
         final EventCollector eventCollector = new EventCollector(
                 now,
-                bucketDuration,
+                config,
                 monitor
 
         );
@@ -132,12 +134,12 @@ class EventCollectorTest {
 
     @Example
     void addEventsFutureBucket() {
-        final Duration bucketDuration = Duration.ofSeconds(1);
+        final Config config = new Config(Duration.ofSeconds(1));
         final JavaFxMonitor monitor = Mockito.mock(JavaFxMonitor.class);
         final LocalDateTime now = LocalDateTime.now();
         final EventCollector eventCollector = new EventCollector(
                 now,
-                bucketDuration,
+                config,
                 monitor
 
         );
@@ -177,5 +179,4 @@ class EventCollectorTest {
         );
         Mockito.verifyNoMoreInteractions(monitor);
     }
-
 }

@@ -1,5 +1,6 @@
 package io.github.keymaster65.timecharts.control;
 
+import io.github.keymaster65.timecharts.api.Config;
 import io.github.keymaster65.timecharts.api.Monitor;
 import io.github.keymaster65.timecharts.model.Event;
 import org.slf4j.Logger;
@@ -24,12 +25,12 @@ public class EventHandler implements Runnable {
     public EventHandler(
             final InputStream in,
             final Monitor monitor,
-            final Duration bucketDuration
+            final Config config
     ) {
         this.in = in;
         eventCollector = new EventCollector(
                 LocalDateTime.now(),
-                bucketDuration,
+                config,
                 monitor
         );
     }

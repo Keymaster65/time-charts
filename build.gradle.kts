@@ -24,6 +24,8 @@ javafx {
 }
 
 dependencies {
+    implementation("commons-cli:commons-cli:1.5.0")
+
     implementation("org.slf4j:slf4j-api:2.0.6")
     implementation("ch.qos.logback:logback-classic:1.4.5")
 
