@@ -3,23 +3,21 @@ package io.github.keymaster65.timecharts.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Duration;
-
 final class StdInEventHandler implements EventHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(StdInEventHandler.class);
 
     private static final String THREAD_NAME = "EventHandler";
     private final Monitor monitor;
-    private final Duration bucketDuration;
+    private final Config config;
 
     StdInEventHandler(
             final Monitor monitor,
-            final Duration bucketDuration
+            final Config config
     ) {
 
         this.monitor = monitor;
-        this.bucketDuration = bucketDuration;
+        this.config = config;
     }
 
     @Override
@@ -28,7 +26,7 @@ final class StdInEventHandler implements EventHandler {
                 new io.github.keymaster65.timecharts.control.EventHandler(
                         System.in,
                         monitor,
-                        bucketDuration
+                        config
                 ),
                 THREAD_NAME
         );
